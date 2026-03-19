@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relaxing Room — Institut de beauté · Les Trois-Îlets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Mulish:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --skin-deep:   #c4856a;
+  --skin-warm:   #d9a882;
+  --skin-light:  #f0d4bc;
+  --skin-pale:   #faf0e8;
+  --espresso:    #2c1a0e;
+  --espresso-s:  #4a2e1a;
+  --espresso-l:  #7a5238;
+  --cream:       #fdf8f2;
+  --linen:       #f5ede2;
+  --gold-oil:    #c9924e;
+  --gold-sheen:  #e8b870;
+  --mist:        #9e8878;
+  --white:       #fffdf9;
+}
+
+html{scroll-behavior:smooth}
+body{font-family:'Mulish',sans-serif;background:var(--cream);color:var(--espresso);overflow-x:hidden;cursor:none}
+
+/* cursor */
+.cur{width:10px;height:10px;border-radius:50%;background:var(--gold-oil);position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .2s,width .3s,height .3s,opacity .3s}
+.cur-r{width:38px;height:38px;border-radius:50%;border:1px solid rgba(201,146,78,.35);position:fixed;top:0;left:0;pointer-events:none;z-index:9998;transform:translate(-50%,-50%)}
+.cur.big{width:18px;height:18px;opacity:.7}
+.cur-r.big{width:56px;height:56px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:2rem 3.5rem;display:flex;align-items:center;justify-content:space-between;transition:all .5s}
+nav.s{background:rgba(253,248,242,.94);backdrop-filter:blur(18px);padding:1.25rem 3.5rem;box-shadow:0 1px 0 rgba(196,133,106,.15)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;letter-spacing:.06em;color:var(--espresso);text-decoration:none}
+.nav-logo span{display:block;font-family:'Mulish',sans-serif;font-size:.52rem;font-weight:200;letter-spacing:.32em;text-transform:uppercase;color:var(--mist);margin-top:2px}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-size:.65rem;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--espresso-l);text-decoration:none;transition:color .3s}
+.nav-links a:hover{color:var(--skin-deep)}
+.nav-cta{font-size:.62rem;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--espresso);border:1px solid rgba(44,26,14,.25);padding:.6rem 1.5rem;text-decoration:none;transition:all .3s}
+.nav-cta:hover{background:var(--espresso);color:var(--cream)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+
+/* The skin-canvas fills the whole hero */
+#skin-canvas{position:absolute;inset:0;width:100%;height:100%}
+
+/* Dark vignette so text reads */
+.hero-vignette{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    to right,
+    rgba(44,26,14,.72) 0%,
+    rgba(44,26,14,.55) 35%,
+    rgba(44,26,14,.1) 65%,
+    rgba(44,26,14,.0) 100%
+  );
+}
+.hero-vignette-bottom{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(44,26,14,.45) 0%,transparent 40%);
+}
+
+.hero-content{
+  position:relative;z-index:2;
+  padding:0 3.5rem 6rem;
+  max-width:680px;
+}
+
+.hero-kicker{
+  font-size:.6rem;font-weight:200;letter-spacing:.4em;text-transform:uppercase;
+  color:rgba(255,255,255,.55);
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:2.5rem;
+  opacity:0;animation:fadeUp .8s ease .2s forwards;
+}
+.hero-kicker::before{content:'';width:32px;height:1px;background:var(--gold-sheen)}
+
+/* Typewriter headline */
+.hero-h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(3.5rem,7vw,7rem);
+  font-weight:300;line-height:.95;
+  color:var(--white);
+  margin-bottom:2rem;
+}
+.hero-h1 em{font-style:italic;color:var(--gold-sheen);display:block}
+.cursor-blink{display:inline-block;width:3px;height:.75em;background:var(--gold-sheen);margin-left:4px;vertical-align:middle;animation:blink 1s step-end infinite}
+
+.hero-desc{
+  font-size:.95rem;font-weight:200;line-height:2;
+  color:rgba(255,255,255,.65);
+  max-width:420px;margin-bottom:3rem;
+  opacity:0;animation:fadeUp .8s ease 2.2s forwards;
+}
+
+.hero-btns{
+  display:flex;gap:1rem;align-items:center;
+  opacity:0;animation:fadeUp .8s ease 2.5s forwards;
+}
+.btn-gold{
+  font-size:.65rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--espresso);background:var(--gold-oil);
+  padding:1rem 2.2rem;text-decoration:none;cursor:none;
+  transition:background .3s,transform .2s;
+  box-shadow:0 4px 24px rgba(201,146,78,.4);
+}
+.btn-gold:hover{background:var(--gold-sheen);transform:translateY(-2px)}
+.btn-outline-w{
+  font-size:.65rem;font-weight:200;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.75);
+  border:1px solid rgba(255,255,255,.3);
+  padding:1rem 2rem;text-decoration:none;cursor:none;
+  transition:all .3s;
+}
+.btn-outline-w:hover{background:rgba(255,255,255,.08);color:var(--white)}
+
+/* Scroll pill */
+.hero-scroll{
+  position:absolute;bottom:3rem;right:3.5rem;z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;animation:fadeIn 1s ease 3s forwards;
+}
+.hero-scroll span{font-size:.5rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(255,255,255,.35);writing-mode:vertical-rl}
+.hero-scroll-bar{width:1px;height:60px;background:linear-gradient(to bottom,var(--gold-oil),transparent);animation:drip 2.5s ease-in-out infinite}
+
+/* ── MANIFESTO ── */
+.manifesto{
+  background:var(--espresso);
+  padding:5rem 3.5rem;
+  display:grid;grid-template-columns:auto 1fr;
+  gap:5rem;align-items:center;
+}
+.manifesto-rule{width:1px;height:120px;background:linear-gradient(to bottom,transparent,var(--gold-oil),transparent)}
+.manifesto-text{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.5rem,2.8vw,2.2rem);
+  font-weight:300;font-style:italic;
+  color:var(--skin-light);line-height:1.5;
+}
+.manifesto-text em{color:var(--gold-sheen);font-style:normal}
+
+/* ── SOINS ── */
+.section-soins{padding:8rem 3.5rem;background:var(--cream)}
+
+.soins-intro{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:6rem;align-items:end;margin-bottom:5rem;
+}
+.tag-line{
+  font-size:.6rem;font-weight:200;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--skin-deep);display:flex;align-items:center;gap:.8rem;margin-bottom:1.5rem;
+}
+.tag-line::before{content:'';width:24px;height:1px;background:var(--skin-deep)}
+.section-h{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2.5rem,4vw,3.75rem);
+  font-weight:300;line-height:1.1;color:var(--espresso);
+}
+.section-h em{font-style:italic;color:var(--skin-deep)}
+.soins-lede{
+  font-size:.9rem;font-weight:200;line-height:2;color:var(--espresso-l);
+  padding-left:1.5rem;border-left:2px solid var(--skin-light);
+}
+
+/* Soin items — each with a skin-tone color band */
+.soins-items{display:flex;flex-direction:column;gap:2px}
+.soin-item{
+  display:grid;grid-template-columns:6px 1fr 3fr auto;
+  gap:2.5rem;align-items:center;
+  padding:2rem 0;
+  border-bottom:1px solid rgba(196,133,106,.12);
+  position:relative;cursor:none;
+  transition:padding-left .4s;
+}
+.soin-item:hover{padding-left:.75rem}
+.soin-band{height:100%;min-height:56px;border-radius:2px;transition:opacity .4s}
+.soin-item:hover .soin-band{opacity:1}
+/* Different warm skin tones per soin */
+.band-1{background:linear-gradient(to bottom,#d9a882,#c4856a);opacity:.4}
+.band-2{background:linear-gradient(to bottom,#c9924e,#b87840);opacity:.4}
+.band-3{background:linear-gradient(to bottom,#e8b870,#d4985a);opacity:.4}
+.band-4{background:linear-gradient(to bottom,#c4856a,#a86848);opacity:.4}
+.band-5{background:linear-gradient(to bottom,#b87840,#9a6430);opacity:.4}
+
+.soin-name-wrap{}
+.soin-cat{font-size:.55rem;font-weight:200;letter-spacing:.22em;text-transform:uppercase;color:var(--mist);margin-bottom:.4rem}
+.soin-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;color:var(--espresso);line-height:1.2}
+.soin-name em{font-style:italic;color:var(--skin-deep)}
+.soin-desc{font-size:.8rem;font-weight:200;line-height:1.85;color:var(--mist)}
+.soin-time{
+  text-align:right;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.4rem;font-weight:300;color:var(--espresso-l);
+  white-space:nowrap;
+}
+.soin-time small{font-family:'Mulish',sans-serif;font-size:.55rem;font-weight:200;letter-spacing:.15em;text-transform:uppercase;color:var(--mist);display:block;margin-top:.2rem}
+
+/* ── OCCASIONS — full width cards on skin bg ── */
+.section-occasions{padding:0 3.5rem 8rem;background:var(--cream)}
+.occ-label{font-size:.6rem;font-weight:200;letter-spacing:.32em;text-transform:uppercase;color:var(--skin-deep);display:flex;align-items:center;gap:.8rem;margin-bottom:1.5rem}
+.occ-label::before{content:'';width:24px;height:1px;background:var(--skin-deep)}
+.occ-main-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,4vw,3.75rem);font-weight:300;line-height:1.1;color:var(--espresso);margin-bottom:4rem}
+.occ-main-title em{font-style:italic;color:var(--skin-deep)}
+
+.occ-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(196,133,106,.15)}
+.occ-card{
+  background:var(--linen);padding:3rem 2.5rem;
+  position:relative;overflow:hidden;cursor:none;
+  transition:background .4s;
+}
+.occ-card:hover{background:var(--skin-pale)}
+/* Top color accent — skin tone strip */
+.occ-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  transition:height .4s;
+}
+.occ-card:nth-child(1)::before{background:var(--skin-deep)}
+.occ-card:nth-child(2)::before{background:var(--gold-oil)}
+.occ-card:nth-child(3)::before{background:var(--skin-warm)}
+.occ-card:hover::before{height:5px}
+
+.occ-n{font-size:.55rem;font-weight:200;letter-spacing:.22em;text-transform:uppercase;color:var(--mist);margin-bottom:1.5rem}
+.occ-title-card{font-family:'Cormorant Garamond',serif;font-size:1.75rem;font-weight:400;line-height:1.2;color:var(--espresso);margin-bottom:1rem}
+.occ-title-card em{font-style:italic;color:var(--skin-deep)}
+.occ-desc{font-size:.8rem;font-weight:200;line-height:1.9;color:var(--espresso-l);margin-bottom:2rem}
+.occ-link{font-size:.6rem;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--skin-deep);text-decoration:none;display:flex;align-items:center;gap:.5rem;transition:gap .3s}
+.occ-link::after{content:'→'}
+.occ-link:hover{gap:.85rem}
+
+/* ── EXPERIENCE — the treatment room feel ── */
+.section-exp{
+  background:var(--espresso);
+  position:relative;overflow:hidden;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+
+.exp-visual{position:relative;min-height:600px}
+#oil-canvas{position:absolute;inset:0;width:100%;height:100%}
+
+.exp-content{
+  padding:7rem 4rem;
+  display:flex;flex-direction:column;justify-content:center;
+  border-left:1px solid rgba(255,255,255,.06);
+}
+.exp-tag-line{font-size:.6rem;font-weight:200;letter-spacing:.32em;text-transform:uppercase;color:rgba(255,255,255,.3);display:flex;align-items:center;gap:.8rem;margin-bottom:2rem}
+.exp-tag-line::before{content:'';width:24px;height:1px;background:var(--gold-oil)}
+.exp-h{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:300;line-height:1.15;color:var(--skin-light);margin-bottom:1.5rem}
+.exp-h em{font-style:italic;color:var(--gold-sheen)}
+.exp-body{font-size:.85rem;font-weight:200;line-height:2;color:rgba(255,255,255,.45);margin-bottom:3rem}
+
+.steps{display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,.08)}
+.step{
+  display:flex;gap:2rem;align-items:flex-start;
+  padding:1.5rem 0;border-bottom:1px solid rgba(255,255,255,.06);
+  cursor:none;transition:padding-left .3s;
+}
+.step:hover{padding-left:.5rem}
+.step-num{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;font-weight:300;
+  color:var(--gold-oil);flex-shrink:0;width:20px;line-height:1.8;
+}
+.step-name{font-size:.85rem;font-weight:300;color:var(--skin-light);margin-bottom:.25rem}
+.step-text{font-size:.75rem;font-weight:200;line-height:1.75;color:rgba(255,255,255,.38)}
+
+/* ── TEMOIGNAGES ── */
+.section-testi{padding:8rem 3.5rem;background:var(--linen)}
+.testi-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:4.5rem}
+.testi-h{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,4vw,3.5rem);font-weight:300;line-height:1.1;color:var(--espresso)}
+.testi-h em{font-style:italic;color:var(--skin-deep)}
+.testi-note{font-size:.8rem;font-weight:200;color:var(--mist);max-width:200px;text-align:right;line-height:1.7}
+
+.testi-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(196,133,106,.2)}
+.testi-card{
+  background:var(--linen);padding:3rem 2.5rem;
+  cursor:none;transition:background .4s;
+}
+.testi-card:hover{background:var(--cream)}
+.testi-open{
+  font-family:'Cormorant Garamond',serif;
+  font-size:5rem;font-weight:300;font-style:italic;
+  color:var(--skin-light);line-height:.6;
+  display:block;margin-bottom:1.5rem;
+}
+.testi-body{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.08rem;font-weight:300;line-height:1.8;color:var(--espresso-l);margin-bottom:2rem}
+.testi-who-rule{width:24px;height:1px;background:var(--skin-deep);margin-bottom:1rem}
+.testi-who{font-size:.62rem;font-weight:200;letter-spacing:.15em;text-transform:uppercase;color:var(--mist)}
+.testi-who strong{display:block;color:var(--espresso-s);font-weight:300;margin-bottom:.2rem;letter-spacing:.1em}
+
+/* ── BOOKING ── */
+.section-booking{
+  padding:8rem 3.5rem;
+  background:var(--skin-pale);
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:7rem;align-items:start;
+}
+.bk-label{font-size:.6rem;font-weight:200;letter-spacing:.32em;text-transform:uppercase;color:var(--skin-deep);display:flex;align-items:center;gap:.8rem;margin-bottom:1.75rem}
+.bk-label::before{content:'';width:24px;height:1px;background:var(--skin-deep)}
+.bk-h{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,4vw,3.5rem);font-weight:300;line-height:1.1;color:var(--espresso);margin-bottom:1.5rem}
+.bk-h em{font-style:italic;color:var(--skin-deep)}
+.bk-body{font-size:.88rem;font-weight:200;line-height:2;color:var(--espresso-l);margin-bottom:3rem}
+
+.contact-items{display:flex;flex-direction:column;border-top:1px solid rgba(196,133,106,.25)}
+.ci-row{display:flex;justify-content:space-between;align-items:flex-start;padding:1.25rem 0;border-bottom:1px solid rgba(196,133,106,.2);cursor:none;transition:padding-left .3s}
+.ci-row:hover{padding-left:.5rem}
+.ci-key{font-size:.58rem;font-weight:200;letter-spacing:.2em;text-transform:uppercase;color:var(--mist)}
+.ci-val{font-size:.85rem;font-weight:200;color:var(--espresso-l);text-align:right;line-height:1.6}
+
+.form-g{margin-bottom:1.5rem}
+.form-row2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-bottom:1.5rem}
+.form-lbl{display:block;font-size:.55rem;font-weight:200;letter-spacing:.22em;text-transform:uppercase;color:var(--mist);margin-bottom:.55rem}
+.form-in,.form-sel,.form-ta{
+  width:100%;background:transparent;
+  border:none;border-bottom:1px solid rgba(196,133,106,.35);
+  padding:.7rem 0;
+  font-family:'Mulish',sans-serif;font-size:.88rem;font-weight:200;color:var(--espresso);
+  outline:none;transition:border-color .3s;appearance:none;
+}
+.form-in:focus,.form-sel:focus,.form-ta:focus{border-color:var(--skin-deep)}
+.form-in::placeholder,.form-ta::placeholder{color:rgba(122,82,56,.3)}
+.form-ta{resize:none;height:100px}
+.form-sel{color:var(--espresso);cursor:none}
+.form-sel option{background:var(--cream)}
+.btn-send{
+  width:100%;padding:1.1rem;margin-top:1rem;
+  background:var(--espresso);color:var(--cream);border:none;
+  font-family:'Mulish',sans-serif;font-size:.65rem;font-weight:300;
+  letter-spacing:.22em;text-transform:uppercase;cursor:none;
+  transition:background .3s,transform .2s;
+}
+.btn-send:hover{background:var(--skin-deep);transform:translateY(-1px)}
+
+/* ── CLOSE ── */
+.section-close{
+  background:var(--espresso);padding:7rem 3.5rem;
+  display:flex;align-items:center;justify-content:space-between;gap:4rem;
+  position:relative;overflow:hidden;
+}
+.section-close::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 80% 50%,rgba(201,146,78,.08),transparent 60%);
+}
+.close-h{font-family:'Cormorant Garamond',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:300;line-height:1.1;color:var(--skin-light);position:relative}
+.close-h em{font-style:italic;color:var(--gold-sheen)}
+.btn-contact{
+  flex-shrink:0;
+  font-size:.65rem;font-weight:300;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--espresso);background:var(--gold-oil);
+  padding:1.1rem 2.5rem;text-decoration:none;cursor:none;white-space:nowrap;
+  transition:background .3s;
+  box-shadow:0 4px 20px rgba(201,146,78,.3);
+}
+.btn-contact:hover{background:var(--gold-sheen)}
+
+/* ── FOOTER ── */
+footer{background:var(--espresso-s);padding:3.5rem 3.5rem;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:4rem}
+.f-brand .f-logo{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;letter-spacing:.04em;color:var(--skin-light)}
+.f-brand .f-sub{font-size:.52rem;font-weight:200;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.25);margin:4px 0 1.5rem}
+.f-brand .f-tag{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.9rem;color:rgba(255,255,255,.3);line-height:1.75}
+.f-col-title{font-size:.55rem;font-weight:200;letter-spacing:.25em;text-transform:uppercase;color:var(--gold-oil);margin-bottom:1.25rem}
+.f-ul{list-style:none;display:flex;flex-direction:column;gap:.65rem}
+.f-ul a{font-size:.8rem;font-weight:200;color:rgba(255,255,255,.3);text-decoration:none;transition:color .3s}
+.f-ul a:hover{color:var(--skin-warm)}
+.f-bottom{grid-column:1/-1;padding-top:2rem;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between}
+.f-copy{font-size:.62rem;font-weight:200;color:rgba(255,255,255,.18)}
+
+/* Reveal */
+.r{opacity:0;transform:translateY(18px);transition:opacity .9s ease,transform .9s ease}
+.r.on{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes drip{0%,100%{opacity:.5;transform:scaleY(1);transform-origin:top}50%{opacity:1;transform:scaleY(.7);transform-origin:top}}
+
+@media(max-width:1100px){
+  .hero-content{padding:0 2rem 5rem}
+  nav,nav.s{padding:1.25rem 2rem}
+  .nav-links{display:none}
+  .manifesto{grid-template-columns:1fr;gap:2rem;padding:4rem 2rem}
+  .manifesto-rule{display:none}
+  .section-soins,.section-occasions,.section-testi,.section-booking,.section-close{padding:5rem 2rem}
+  .soins-intro,.section-exp,.section-booking{grid-template-columns:1fr;gap:3rem}
+  .soin-item{grid-template-columns:6px 1fr;gap:1rem}
+  .soin-desc,.soin-time{display:none}
+  .occ-grid,.testi-row{grid-template-columns:1fr}
+  .exp-visual{min-height:300px}
+  .exp-content{padding:4rem 2rem}
+  .section-close{flex-direction:column;text-align:center}
+  footer{grid-template-columns:1fr;gap:2rem;padding:3rem 2rem}
+  .f-bottom{flex-direction:column;gap:.5rem}
+  body{cursor:auto}
+  .cur,.cur-r{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Relaxing Room<span>Institut de beauté · Les Trois-Îlets</span></a>
+  <ul class="nav-links">
+    <li><a href="#soins">Soins</a></li>
+    <li><a href="#occasions">Occasions</a></li>
+    <li><a href="#experience">L'expérience</a></li>
+    <li><a href="#reservation">Réserver</a></li>
+  </ul>
+  <a href="#reservation" class="nav-cta">Prendre rendez-vous</a>
+</nav>
+
+<!-- HERO — skin canvas fills the background -->
+<section class="hero">
+  <canvas id="skin-canvas"></canvas>
+  <div class="hero-vignette"></div>
+  <div class="hero-vignette-bottom"></div>
+  <div class="hero-content">
+    <div class="hero-kicker">Institut de beauté · Village de la Poterie, Martinique</div>
+    <h1 class="hero-h1">
+      <span id="line1"></span><br>
+      <em id="line2"></em>
+    </h1>
+    <p class="hero-desc">Soins du visage, massages, aromathérapie. Alicia vous reçoit dans un espace pensé uniquement pour vous — sur rendez-vous, au Village de la Poterie.</p>
+    <div class="hero-btns">
+      <a href="#reservation" class="btn-gold">Réserver un soin</a>
+      <a href="#soins" class="btn-outline-w">Découvrir</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Défiler</span><div class="hero-scroll-bar"></div></div>
+</section>
+
+<!-- MANIFESTO -->
+<div class="manifesto">
+  <div class="manifesto-rule"></div>
+  <p class="manifesto-text r">
+    « Prendre soin de sa peau, c'est prendre soin de soi. Pas un luxe — <em>une nécessité.</em> »
+  </p>
+</div>
+
+<!-- SOINS -->
+<section class="section-soins" id="soins">
+  <div class="soins-intro">
+    <div class="r">
+      <div class="tag-line">Les soins</div>
+      <h2 class="section-h">Chaque soin,<br><em>pour vous seule</em></h2>
+    </div>
+    <p class="soins-lede r d2">Alicia écoute avant de toucher. Chaque protocole est ajusté à votre peau et à ce dont vous avez besoin — pas à une liste de services standards.</p>
+  </div>
+
+  <div class="soins-items">
+    <div class="soin-item r">
+      <div class="soin-band band-1"></div>
+      <div class="soin-name-wrap"><div class="soin-cat">Visage</div><div class="soin-name">Soin du <em>visage</em></div></div>
+      <div class="soin-desc">Nettoyage en profondeur, exfoliation douce, masque et sérum ciblés. Teint lumineux, peau nourrie. Adapté à chaque type de peau.</div>
+      <div class="soin-time">60 min<small>Durée indicative</small></div>
+    </div>
+    <div class="soin-item r d1">
+      <div class="soin-band band-2"></div>
+      <div class="soin-name-wrap"><div class="soin-cat">Corps</div><div class="soin-name">Massage <em>relaxant</em></div></div>
+      <div class="soin-desc">Huiles essentielles choisies selon vos besoins, pressions modulées, technique holistique. Les tensions s'effacent, corps et esprit s'apaisent.</div>
+      <div class="soin-time">45–90 min<small>Durée indicative</small></div>
+    </div>
+    <div class="soin-item r d2">
+      <div class="soin-band band-3"></div>
+      <div class="soin-name-wrap"><div class="soin-cat">Mains &amp; Pieds</div><div class="soin-name">Manucure &amp; <em>Pédicure</em></div></div>
+      <div class="soin-desc">Bain, gommage, soin hydratant ciblé, modelage et finition soignée. De la pointe des doigts à la plante des pieds.</div>
+      <div class="soin-time">45 min<small>Durée indicative</small></div>
+    </div>
+    <div class="soin-item r d3">
+      <div class="soin-band band-4"></div>
+      <div class="soin-name-wrap"><div class="soin-cat">Bien-être</div><div class="soin-name"><em>Aromathérapie</em></div></div>
+      <div class="soin-desc">Les huiles essentielles au service de votre équilibre. Soin olfactif et sensitif pour rééquilibrer corps et esprit en profondeur.</div>
+      <div class="soin-time">60 min<small>Durée indicative</small></div>
+    </div>
+    <div class="soin-item r d4">
+      <div class="soin-band band-5"></div>
+      <div class="soin-name-wrap"><div class="soin-cat">Maternité</div><div class="soin-name">Soin <em>grossesse</em></div></div>
+      <div class="soin-desc">Protocole doux et sécurisé à chaque trimestre. Soulagement des tensions, bien-être profond pour la future maman.</div>
+      <div class="soin-time">60 min<small>Durée indicative</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- OCCASIONS -->
+<section class="section-occasions" id="occasions">
+  <div class="r"><div class="occ-label">Moments exceptionnels</div>
+  <h2 class="occ-main-title">Pour les occasions<br><em>qui comptent</em></h2></div>
+
+  <div class="occ-grid r d1">
+    <div class="occ-card">
+      <div class="occ-n">01 · EVJF</div>
+      <div class="occ-title-card">Rituel <em>enterrement de vie</em></div>
+      <p class="occ-desc">Un moment entre filles, orchestré avec soin avant le grand jour. Soins en groupe dans une ambiance intime — un souvenir rare.</p>
+      <a href="#reservation" class="occ-link">Réserver pour le groupe</a>
+    </div>
+    <div class="occ-card">
+      <div class="occ-n">02 · Anniversaire</div>
+      <div class="occ-title-card">Soin <em>cadeau</em></div>
+      <p class="occ-desc">Offrez-vous ou offrez à quelqu'un que vous aimez une expérience beauté complète. Un cadeau qui se vit, qui marque, qui dure.</p>
+      <a href="#reservation" class="occ-link">Offrir ce soin</a>
+    </div>
+    <div class="occ-card">
+      <div class="occ-n">03 · Duo</div>
+      <div class="occ-title-card">Soin <em>à deux</em></div>
+      <p class="occ-desc">Mère et fille, amies proches. Un rituel beauté partagé dans le calme du salon. Complicité et douceur, garanties.</p>
+      <a href="#reservation" class="occ-link">Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE — oil/skin canvas left, steps right -->
+<section class="section-exp" id="experience">
+  <div class="exp-visual"><canvas id="oil-canvas"></canvas></div>
+  <div class="exp-content">
+    <div class="exp-tag-line r">L'expérience</div>
+    <h2 class="exp-h r d1">Du premier<br>geste au <em>dernier</em></h2>
+    <p class="exp-body r d2">Franchir la porte du Relaxing Room, c'est entrer dans un espace qui vous appartient entièrement. Alicia prépare chaque séance pour vous — pas pour une cliente type.</p>
+    <div class="steps r d3">
+      <div class="step"><div class="step-num">I</div><div><div class="step-name">L'accueil</div><p class="step-text">Boisson chaude ou fraîche, silence doux. Vous avez le temps — c'est votre heure.</p></div></div>
+      <div class="step"><div class="step-num">II</div><div><div class="step-name">La consultation</div><p class="step-text">Alicia écoute ce dont vous avez besoin aujourd'hui. Le soin est construit autour de ça.</p></div></div>
+      <div class="step"><div class="step-num">III</div><div><div class="step-name">Le soin</div><p class="step-text">Gestes précis, produits choisis, attention totale. Un moment suspendu.</p></div></div>
+      <div class="step"><div class="step-num">IV</div><div><div class="step-name">Le départ</div><p class="step-text">Conseils personnalisés, peau transformée. Vous repartez autrement.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEMOIGNAGES -->
+<section class="section-testi" id="temoignages">
+  <div class="testi-top">
+    <div class="r"><div class="tag-line">Elles en parlent</div><h2 class="testi-h">Ce qu'elles<br>ont <em>vécu</em></h2></div>
+    <p class="testi-note r d2">Des femmes qui ont pris le temps de prendre soin d'elles.</p>
+  </div>
+  <div class="testi-row">
+    <div class="testi-card r d1">
+      <span class="testi-open">"</span>
+      <p class="testi-body">Alicia a su exactement ce dont j'avais besoin ce jour-là. Précise, attentionnée. Le résultat était immédiat. Je reviens chaque mois.</p>
+      <div class="testi-who-rule"></div>
+      <div class="testi-who"><strong>Sophie M.</strong>Soin du visage</div>
+    </div>
+    <div class="testi-card r d2">
+      <span class="testi-open">"</span>
+      <p class="testi-body">Mon EVJF au Relaxing Room. Alicia avait tout préparé — c'était intime, attentionné et festif à la fois. On s'en souvient encore.</p>
+      <div class="testi-who-rule"></div>
+      <div class="testi-who"><strong>Camille R.</strong>Rituel EVJF, groupe de 6</div>
+    </div>
+    <div class="testi-card r d3">
+      <span class="testi-open">"</span>
+      <p class="testi-body">Le massage grossesse m'a apporté un soulagement que je n'avais pas eu depuis des mois. Alicia connaît le corps et sait exactement où agir.</p>
+      <div class="testi-who-rule"></div>
+      <div class="testi-who"><strong>Laure D.</strong>Soin grossesse, 7e mois</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="section-booking" id="reservation">
+  <div>
+    <div class="bk-label r">Prendre rendez-vous</div>
+    <h2 class="bk-h r d1">Votre prochain<br>moment <em>vous attend</em></h2>
+    <p class="bk-body r d2">Parlez-nous de ce dont vous avez besoin. Alicia construira le soin autour de vous.</p>
+    <div class="contact-items r d3">
+      <div class="ci-row"><span class="ci-key">Adresse</span><span class="ci-val">Village de la Poterie · Les Trois-Îlets, 97229</span></div>
+      <div class="ci-row"><span class="ci-key">Email</span><span class="ci-val">relaxing.room@gmail.com</span></div>
+      <div class="ci-row"><span class="ci-key">Horaires</span><span class="ci-val">Lun – Sam · Sur rendez-vous</span></div>
+      <div class="ci-row"><span class="ci-key">Cartes cadeaux</span><span class="ci-val">Disponibles à l'Institut</span></div>
+    </div>
+  </div>
+  <div class="r d2">
+    <div class="form-row2">
+      <div class="form-g"><label class="form-lbl">Prénom</label><input class="form-in" type="text" placeholder="Marie"></div>
+      <div class="form-g"><label class="form-lbl">Nom</label><input class="form-in" type="text" placeholder="Dupont"></div>
+    </div>
+    <div class="form-g"><label class="form-lbl">Email</label><input class="form-in" type="email" placeholder="marie@exemple.com"></div>
+    <div class="form-g">
+      <label class="form-lbl">Soin souhaité</label>
+      <select class="form-sel">
+        <option value="">Choisir une prestation</option>
+        <option>Soin du visage</option><option>Massage relaxant</option>
+        <option>Manucure &amp; Pédicure</option><option>Aromathérapie</option>
+        <option>Soin femme enceinte</option><option>Rituel EVJF</option>
+        <option>Soin anniversaire</option><option>Forfait duo</option>
+        <option>Conseil — je ne sais pas encore</option>
+      </select>
+    </div>
+    <div class="form-g"><label class="form-lbl">Message</label><textarea class="form-ta" placeholder="Ce dont vous avez envie, ou une question pour Alicia…"></textarea></div>
+    <button class="btn-send">Envoyer ma demande</button>
+  </div>
+</section>
+
+<!-- CLOSE -->
+<section class="section-close r">
+  <h2 class="close-h">Vous méritez<br>ce moment.<br><em>Vraiment.</em></h2>
+  <a href="mailto:relaxing.room@gmail.com" class="btn-contact">Écrire à Alicia</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-brand">
+    <div class="f-logo">Relaxing Room</div>
+    <div class="f-sub">Institut de beauté · Martinique</div>
+    <p class="f-tag">"Un espace pensé pour votre bien-être, uniquement."</p>
+  </div>
+  <div>
+    <div class="f-col-title">Soins</div>
+    <ul class="f-ul">
+      <li><a href="#soins">Soin du visage</a></li>
+      <li><a href="#soins">Massage relaxant</a></li>
+      <li><a href="#soins">Manucure &amp; Pédicure</a></li>
+      <li><a href="#soins">Aromathérapie</a></li>
+      <li><a href="#soins">Soin grossesse</a></li>
+    </ul>
+  </div>
+  <div>
+    <div class="f-col-title">Institut</div>
+    <ul class="f-ul">
+      <li><a href="#occasions">EVJF &amp; Anniversaires</a></li>
+      <li><a href="#experience">L'expérience</a></li>
+      <li><a href="#reservation">Prendre rendez-vous</a></li>
+      <li><a href="mailto:relaxing.room@gmail.com">relaxing.room@gmail.com</a></li>
+    </ul>
+  </div>
+  <div class="f-bottom">
+    <div class="f-copy">© 2025 Relaxing Room · Alicia Cyganczuk · Village de la Poterie, Les Trois-Îlets, Martinique</div>
+    <div class="f-copy">Tous droits réservés</div>
+  </div>
+</footer>
+
+<script>
+// Cursor
+const cur=document.getElementById('cur'),curR=document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.soin-item,.occ-card,.testi-card,.step,.ci-row').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cur.classList.add('big');curR.classList.add('big');});
+  el.addEventListener('mouseleave',()=>{cur.classList.remove('big');curR.classList.remove('big');});
+});
+
+// Nav
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('s',window.scrollY>60));
+
+// Reveal
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');}),{threshold:.1});
+document.querySelectorAll('.r').forEach(el=>obs.observe(el));
+
+// Smooth anchors
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}});
+});
+
+// ── TYPEWRITER HERO ──
+const words1=['Prenez soin','Un moment','Votre peau,'];
+const words2=['de vous.','rien que pour vous.','votre moment.'];
+let w=0;
+function typewrite(el,text,speed,done){
+  let i=0;el.textContent='';
+  const iv=setInterval(()=>{
+    el.textContent+=text[i++];
+    if(i>=text.length){clearInterval(iv);if(done)setTimeout(done,1200);}
+  },speed);
+}
+function erase(el,speed,done){
+  const iv=setInterval(()=>{
+    el.textContent=el.textContent.slice(0,-1);
+    if(!el.textContent.length){clearInterval(iv);if(done)done();}
+  },speed/2);
+}
+function cycleWords(){
+  const l1=document.getElementById('line1'),l2=document.getElementById('line2');
+  typewrite(l1,words1[w],80,()=>{
+    typewrite(l2,words2[w],80,()=>{
+      setTimeout(()=>{
+        erase(l2,80,()=>erase(l1,80,()=>{
+          w=(w+1)%words1.length;
+          setTimeout(cycleWords,400);
+        }));
+      },2500);
+    });
+  });
+}
+// Start after initial animation delay
+setTimeout(()=>{
+  document.getElementById('line1').innerHTML='';
+  document.getElementById('line2').innerHTML='';
+  cycleWords();
+},600);
+
+// ── HERO SKIN CANVAS ──
+// Simulates warm light moving across skin — oil sheen, depth, warmth
+(function(){
+  const c=document.getElementById('skin-canvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  let W,H,t=0;
+  const resize=()=>{W=c.width=window.innerWidth;H=c.height=window.innerHeight;};
+  resize();window.addEventListener('resize',resize);
+
+  // Skin colour palette
+  const skinTones=['#c4856a','#d9a882','#e8c4a0','#c27a58','#b8724e','#ddb890','#f0d4bc'];
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+
+    // Base — deep warm skin gradient
+    const bg=ctx.createLinearGradient(0,0,W,H);
+    bg.addColorStop(0,'#3d1f0f');
+    bg.addColorStop(.3,'#7a4028');
+    bg.addColorStop(.6,'#c4856a');
+    bg.addColorStop(.85,'#d9a882');
+    bg.addColorStop(1,'#f0d4bc');
+    ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+
+    // Slow-moving light orbs — simulate oil/serum light catching
+    const orbs=[
+      {x:.25,y:.3,r:.35,c:'rgba(240,212,188,.18)',spd:.7,phase:0},
+      {x:.6,y:.6,r:.4,c:'rgba(232,184,112,.12)',spd:.5,phase:1.2},
+      {x:.8,y:.2,r:.28,c:'rgba(255,220,180,.22)',spd:.9,phase:2.4},
+      {x:.15,y:.75,r:.32,c:'rgba(201,146,78,.1)',spd:.6,phase:3.6},
+      {x:.5,y:.15,r:.22,c:'rgba(255,200,160,.14)',spd:1.1,phase:4.8},
+    ];
+    orbs.forEach(o=>{
+      const ox=W*(o.x+Math.sin(t*o.spd*.3+o.phase)*.08);
+      const oy=H*(o.y+Math.cos(t*o.spd*.25+o.phase)*.06);
+      const r=Math.min(W,H)*o.r;
+      const g=ctx.createRadialGradient(ox,oy,0,ox,oy,r);
+      g.addColorStop(0,o.c);g.addColorStop(1,'transparent');
+      ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+    });
+
+    // Fine skin texture — micro lines suggesting pores/texture
+    ctx.save();ctx.globalAlpha=.04;
+    for(let y=0;y<H;y+=3){
+      ctx.beginPath();ctx.moveTo(0,y+Math.sin(y*.05+t*.1)*.8);ctx.lineTo(W,y+Math.sin(y*.05+t*.1+1)*.8);
+      ctx.strokeStyle='rgba(100,50,20,1)';ctx.lineWidth=.5;ctx.stroke();
+    }
+    ctx.restore();
+
+    // Specular highlight — the gleam of a freshly oiled cheek
+    const sx=W*(.55+Math.sin(t*.2)*.06);
+    const sy=H*(.38+Math.cos(t*.15)*.04);
+    const sr=Math.min(W,H)*.18;
+    const sg=ctx.createRadialGradient(sx,sy,0,sx,sy,sr);
+    sg.addColorStop(0,'rgba(255,245,230,.55)');
+    sg.addColorStop(.3,'rgba(255,235,200,.25)');
+    sg.addColorStop(1,'transparent');
+    ctx.fillStyle=sg;ctx.fillRect(0,0,W,H);
+
+    // Secondary smaller specular — catches at an angle
+    const sx2=W*(.65+Math.cos(t*.18)*.04);
+    const sy2=H*(.55+Math.sin(t*.22)*.03);
+    const sg2=ctx.createRadialGradient(sx2,sy2,0,sx2,sy2,Math.min(W,H)*.08);
+    sg2.addColorStop(0,'rgba(255,250,240,.35)');sg2.addColorStop(1,'transparent');
+    ctx.fillStyle=sg2;ctx.fillRect(0,0,W,H);
+
+    // Deep shadow zone — left side, adds depth like face contour
+    const shadow=ctx.createLinearGradient(0,0,W*.4,0);
+    shadow.addColorStop(0,'rgba(20,8,4,.35)');shadow.addColorStop(1,'transparent');
+    ctx.fillStyle=shadow;ctx.fillRect(0,0,W,H);
+
+    // Bottom warmth — like neck/décolleté coming into frame
+    const warm=ctx.createLinearGradient(0,H*.7,0,H);
+    warm.addColorStop(0,'transparent');warm.addColorStop(1,'rgba(120,60,20,.3)');
+    ctx.fillStyle=warm;ctx.fillRect(0,0,W,H);
+
+    t+=.008;requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── OIL / TREATMENT CANVAS (experience section) ──
+// Warm candlelit oil drops catching light — like serum being applied
+(function(){
+  const c=document.getElementById('oil-canvas');
+  if(!c)return;
+  const ctx=c.getContext('2d');
+  let W,H,t=0;
+  const resize=()=>{
+    const r=c.parentElement.getBoundingClientRect();
+    W=c.width=r.width||500;H=c.height=r.height||600;
+  };
+  resize();window.addEventListener('resize',resize);
+
+  // Oil drops — they slowly drift and catch light
+  const drops=Array.from({length:18},(_,i)=>({
+    x:Math.random(),y:Math.random(),
+    r:.015+Math.random()*.04,
+    spd:.15+Math.random()*.2,
+    phase:Math.random()*Math.PI*2,
+    drift:Math.random()*.03-.015,
+  }));
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+
+    // Dark warm base — candlelit room
+    const bg=ctx.createLinearGradient(0,0,W,H);
+    bg.addColorStop(0,'#1a0c06');bg.addColorStop(.5,'#2e1508');bg.addColorStop(1,'#1a0c06');
+    ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+
+    // Candlelight glow — central warm pool
+    const flame=ctx.createRadialGradient(W*.5,H*.35,0,W*.5,H*.35,H*.45);
+    flame.addColorStop(0,'rgba(201,146,78,.22)');
+    flame.addColorStop(.4,'rgba(180,100,40,.1)');
+    flame.addColorStop(1,'transparent');
+    ctx.fillStyle=flame;ctx.fillRect(0,0,W,H);
+
+    // Skin surface suggestion — horizontal gradient bands
+    for(let i=0;i<5;i++){
+      const gy=H*(.2+i*.15+Math.sin(t*.2+i)*.02);
+      const g=ctx.createLinearGradient(0,gy,W,gy+H*.08);
+      g.addColorStop(0,'transparent');
+      g.addColorStop(.3,`rgba(196,133,106,${.04+i*.008})`);
+      g.addColorStop(.7,`rgba(217,168,130,${.03+i*.005})`);
+      g.addColorStop(1,'transparent');
+      ctx.fillStyle=g;ctx.fillRect(0,gy,W,H*.1);
+    }
+
+    // Oil drops — iridescent, slowly moving
+    drops.forEach((d,i)=>{
+      const x=W*(d.x+Math.sin(t*d.spd+d.phase)*d.drift);
+      const y=H*(d.y+Math.cos(t*d.spd*.7+d.phase)*d.drift*.5);
+      const r=Math.min(W,H)*d.r;
+
+      // Outer glow
+      const og=ctx.createRadialGradient(x,y,0,x,y,r*2.5);
+      og.addColorStop(0,`rgba(232,184,112,.12)`);og.addColorStop(1,'transparent');
+      ctx.fillStyle=og;ctx.beginPath();ctx.arc(x,y,r*2.5,0,Math.PI*2);ctx.fill();
+
+      // Drop body — like a bead of oil
+      const dg=ctx.createRadialGradient(x-r*.3,y-r*.3,0,x,y,r);
+      dg.addColorStop(0,'rgba(255,245,220,.7)');
+      dg.addColorStop(.4,'rgba(217,168,100,.5)');
+      dg.addColorStop(.8,'rgba(160,100,40,.3)');
+      dg.addColorStop(1,'rgba(100,50,10,.15)');
+      ctx.fillStyle=dg;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill();
+
+      // Specular on drop
+      const spec=ctx.createRadialGradient(x-r*.35,y-r*.35,0,x-r*.35,y-r*.35,r*.4);
+      spec.addColorStop(0,'rgba(255,255,240,.9)');spec.addColorStop(1,'transparent');
+      ctx.fillStyle=spec;ctx.beginPath();ctx.arc(x-r*.35,y-r*.35,r*.4,0,Math.PI*2);ctx.fill();
+    });
+
+    // Golden sheen sweep — slow diagonal light ray
+    const sweep=((t*.05)%1);
+    const sg=ctx.createLinearGradient(
+      W*(sweep-.2),0,W*(sweep+.1),H
+    );
+    sg.addColorStop(0,'transparent');
+    sg.addColorStop(.5,'rgba(232,184,112,.06)');
+    sg.addColorStop(1,'transparent');
+    ctx.fillStyle=sg;ctx.fillRect(0,0,W,H);
+
+    // Subtle text — product label feel
+    ctx.save();
+    ctx.globalAlpha=.12;
+    ctx.font='italic 300 1.1rem "Cormorant Garamond",serif';
+    ctx.fillStyle='rgba(240,200,150,1)';
+    ctx.textAlign='center';
+    ctx.fillText('huiles · soins · aromathérapie',W*.5,H-.9*44);
+    ctx.restore();
+
+    t+=.01;requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>
