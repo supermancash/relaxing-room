@@ -875,6 +875,7 @@ setTimeout(()=>{
   draw();
 })();
 </script>
+
 <!-- Pli Vizib Contact Banner -->
 <style>
 #pvb{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,.13);padding:1.1rem 1.25rem 1rem;max-width:300px;width:calc(100vw - 3rem);font-family:sans-serif;transition:opacity .4s,transform .4s;opacity:0;transform:translateY(12px);pointer-events:none}
@@ -885,8 +886,10 @@ setTimeout(()=>{
 #pvb p{margin:0 0 .65rem;font-size:.82rem;color:#666;line-height:1.4}
 #pvb p em{font-style:italic;font-size:.95rem;color:#222;display:block;margin-bottom:.2rem}
 #pvb-btns{display:flex;gap:.5rem}
-#pvb-btns a{flex:1;text-align:center;padding:.55rem .4rem;border-radius:8px;font-size:.72rem;font-weight:600;letter-spacing:.03em;text-decoration:none;transition:opacity .2s}
+#pvb-btns a{flex:1;display:flex;flex-direction:column;align-items:center;gap:.2rem;text-align:center;padding:.65rem .4rem;border-radius:8px;text-decoration:none;transition:opacity .2s}
 #pvb-btns a:hover{opacity:.85}
+#pvb-btns a .ico{font-size:1.3rem;line-height:1}
+#pvb-btns a .lbl{font-size:.68rem;font-weight:600;letter-spacing:.03em}
 #pvb-wa{background:#25d366;color:#fff}
 #pvb-mail{background:#f0f0f0;color:#222}
 @media(max-width:600px){
@@ -894,7 +897,7 @@ setTimeout(()=>{
   #pvb-close{position:static;margin-left:auto;flex-shrink:0;font-size:1.1rem}
   #pvb p{margin:0;flex:1}
   #pvb-btns{flex-shrink:0;gap:.4rem}
-  #pvb-btns a{padding:.5rem .6rem}
+  #pvb-btns a{padding:.5rem .7rem}
 }
 </style>
 
@@ -905,11 +908,19 @@ setTimeout(()=>{
     Contactez-nous pour votre propre site&nbsp;:
   </p>
   <div id="pvb-btns">
-    <a id="pvb-wa" href="https://wa.me/596696692859" target="_blank">💬 WhatsApp</a>
-    <a id="pvb-mail" href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#64;&#112;&#108;&#105;&#118;&#105;&#122;&#105;&#98;&#46;&#109;&#101;&#100;&#105;&#97;">📧 Email</a>
+    <a id="pvb-wa" href="https://wa.me/596696692859" target="_blank">
+      <span class="ico">&#x1F4AC;</span>
+      <span class="lbl">WhatsApp</span>
+    </a>
+    <a id="pvb-mail" href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#64;&#112;&#108;&#105;&#118;&#105;&#122;&#105;&#98;&#46;&#109;&#101;&#100;&#105;&#97;">
+      <span class="ico">&#x2709;&#xFE0E;</span>
+      <span class="lbl">Email</span>
+    </a>
   </div>
 </div>
 <script>setTimeout(function(){document.getElementById('pvb').classList.add('show')},10000)</script>
 <!-- End Pli Vizib Banner -->
+
+  
 </body>
 </html>
