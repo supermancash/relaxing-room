@@ -875,9 +875,10 @@ setTimeout(()=>{
   draw();
 })();
 </script>
-  <!-- Pli Vizib Contact Banner -->
+<!-- Pli Vizib Contact Banner -->
 <style>
-#pvb{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,.13);padding:1.1rem 1.25rem 1rem;max-width:300px;width:calc(100vw - 3rem);font-family:sans-serif;transition:opacity .3s,transform .3s}
+#pvb{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,.13);padding:1.1rem 1.25rem 1rem;max-width:300px;width:calc(100vw - 3rem);font-family:sans-serif;transition:opacity .4s,transform .4s;opacity:0;transform:translateY(12px);pointer-events:none}
+#pvb.show{opacity:1;transform:translateY(0);pointer-events:auto}
 #pvb.hide{opacity:0;transform:translateY(12px);pointer-events:none}
 #pvb-close{position:absolute;top:.55rem;right:.75rem;background:none;border:none;font-size:1rem;line-height:1;color:#aaa;cursor:pointer;padding:0}
 #pvb-close:hover{color:#555}
@@ -898,16 +899,17 @@ setTimeout(()=>{
 </style>
 
 <div id="pvb">
-  <button id="pvb-close" onclick="document.getElementById('pvb').classList.add('hide')" aria-label="Fermer">✕</button>
+  <button id="pvb-close" onclick="document.getElementById('pvb').classList.add('hide')" aria-label="Fermer">&#x2715;</button>
   <p>
-    <em>Ce site vous plaît ?</em>
-    Contactez-nous pour votre propre site :
+    <em>Ce site vous plait&nbsp;?</em>
+    Contactez-nous pour votre propre site&nbsp;:
   </p>
   <div id="pvb-btns">
     <a id="pvb-wa" href="https://wa.me/596696692859" target="_blank">💬 WhatsApp</a>
-    <a id="pvb-mail" href="mailto:contact@plivizib.media">✉ Email</a>
+    <a id="pvb-mail" href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#64;&#112;&#108;&#105;&#118;&#105;&#122;&#105;&#98;&#46;&#109;&#101;&#100;&#105;&#97;">📧 Email</a>
   </div>
 </div>
+<script>setTimeout(function(){document.getElementById('pvb').classList.add('show')},10000)</script>
 <!-- End Pli Vizib Banner -->
 </body>
 </html>
