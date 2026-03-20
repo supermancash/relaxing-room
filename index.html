@@ -875,5 +875,39 @@ setTimeout(()=>{
   draw();
 })();
 </script>
+  <!-- Pli Vizib Contact Banner -->
+<style>
+#pvb{position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(0,0,0,.13);padding:1.1rem 1.25rem 1rem;max-width:300px;width:calc(100vw - 3rem);font-family:sans-serif;transition:opacity .3s,transform .3s}
+#pvb.hide{opacity:0;transform:translateY(12px);pointer-events:none}
+#pvb-close{position:absolute;top:.55rem;right:.75rem;background:none;border:none;font-size:1rem;line-height:1;color:#aaa;cursor:pointer;padding:0}
+#pvb-close:hover{color:#555}
+#pvb p{margin:0 0 .65rem;font-size:.82rem;color:#666;line-height:1.4}
+#pvb p em{font-style:italic;font-size:.95rem;color:#222;display:block;margin-bottom:.2rem}
+#pvb-btns{display:flex;gap:.5rem}
+#pvb-btns a{flex:1;text-align:center;padding:.55rem .4rem;border-radius:8px;font-size:.72rem;font-weight:600;letter-spacing:.03em;text-decoration:none;transition:opacity .2s}
+#pvb-btns a:hover{opacity:.85}
+#pvb-wa{background:#25d366;color:#fff}
+#pvb-mail{background:#f0f0f0;color:#222}
+@media(max-width:600px){
+  #pvb{bottom:0;right:0;left:0;max-width:none;width:100%;border-radius:14px 14px 0 0;padding:.85rem 1rem .9rem;display:flex;align-items:center;gap:.75rem}
+  #pvb-close{position:static;margin-left:auto;flex-shrink:0;font-size:1.1rem}
+  #pvb p{margin:0;flex:1}
+  #pvb-btns{flex-shrink:0;gap:.4rem}
+  #pvb-btns a{padding:.5rem .6rem}
+}
+</style>
+
+<div id="pvb">
+  <button id="pvb-close" onclick="document.getElementById('pvb').classList.add('hide')" aria-label="Fermer">✕</button>
+  <p>
+    <em>Ce site vous plaît ?</em>
+    Contactez-nous pour votre propre site :
+  </p>
+  <div id="pvb-btns">
+    <a id="pvb-wa" href="https://wa.me/596696692859" target="_blank">💬 WhatsApp</a>
+    <a id="pvb-mail" href="mailto:contact@plivizib.media">✉ Email</a>
+  </div>
+</div>
+<!-- End Pli Vizib Banner -->
 </body>
 </html>
